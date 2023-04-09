@@ -1,0 +1,1 @@
+截至昨日最后一笔交易，您的额度和积分信息如下：{{}}可用额度{{}}积分余额{{gjson date}}您的消费明细如下：{{loop $index}}{{gjson "items.$index.time"}}CNY{{gjson "items.$index.money"}}尾号{{gjson "items.$index.carNumberExt"}}消费{{gjson "items.$index.payCopony"}}{{end}}
