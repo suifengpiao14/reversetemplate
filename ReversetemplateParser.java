@@ -19,10 +19,10 @@ public class ReversetemplateParser extends Parser {
 		LeftDim=1, RightDim=2, Empty=3, Loop=4, End=5, Gjson=6, Str=7, Path=8, 
 		Space=9;
 	public static final int
-		RULE_parseTpl = 0, RULE_empty = 1, RULE_gjson = 2, RULE_loop = 3, RULE_str = 4;
+		RULE_parseTpl = 0, RULE_every = 1;
 	private static String[] makeRuleNames() {
 		return new String[] {
-			"parseTpl", "empty", "gjson", "loop", "str"
+			"parseTpl", "every"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
@@ -92,17 +92,8 @@ public class ReversetemplateParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class ParseTplContext extends ParserRuleContext {
-		public EmptyContext empty() {
-			return getRuleContext(EmptyContext.class,0);
-		}
-		public GjsonContext gjson() {
-			return getRuleContext(GjsonContext.class,0);
-		}
-		public LoopContext loop() {
-			return getRuleContext(LoopContext.class,0);
-		}
-		public StrContext str() {
-			return getRuleContext(StrContext.class,0);
+		public EveryContext every() {
+			return getRuleContext(EveryContext.class,0);
 		}
 		public ParseTplContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -122,191 +113,65 @@ public class ReversetemplateParser extends Parser {
 		ParseTplContext _localctx = new ParseTplContext(_ctx, getState());
 		enterRule(_localctx, 0, RULE_parseTpl);
 		try {
-			setState(14);
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(4);
+			every();
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
+	public static class EveryContext extends ParserRuleContext {
+		public TerminalNode EOF() { return getToken(ReversetemplateParser.EOF, 0); }
+		public EveryContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_every; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ReversetemplateListener ) ((ReversetemplateListener)listener).enterEvery(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ReversetemplateListener ) ((ReversetemplateListener)listener).exitEvery(this);
+		}
+	}
+
+	public final EveryContext every() throws RecognitionException {
+		EveryContext _localctx = new EveryContext(_ctx, getState());
+		enterRule(_localctx, 2, RULE_every);
+		try {
+			int _alt;
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(9);
 			_errHandler.sync(this);
-			switch (_input.LA(1)) {
-			case Empty:
-				enterOuterAlt(_localctx, 1);
-				{
-				setState(10);
-				empty();
+			_alt = getInterpreter().adaptivePredict(_input,0,_ctx);
+			while ( _alt!=1 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
+				if ( _alt==1+1 ) {
+					{
+					{
+					setState(6);
+					matchWildcard();
+					}
+					} 
 				}
-				break;
-			case Gjson:
-				enterOuterAlt(_localctx, 2);
-				{
 				setState(11);
-				gjson();
-				}
-				break;
-			case Loop:
-				enterOuterAlt(_localctx, 3);
-				{
-				setState(12);
-				loop();
-				}
-				break;
-			case Str:
-				enterOuterAlt(_localctx, 4);
-				{
-				setState(13);
-				str();
-				}
-				break;
-			default:
-				throw new NoViableAltException(this);
+				_errHandler.sync(this);
+				_alt = getInterpreter().adaptivePredict(_input,0,_ctx);
 			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
-	@SuppressWarnings("CheckReturnValue")
-	public static class EmptyContext extends ParserRuleContext {
-		public TerminalNode Empty() { return getToken(ReversetemplateParser.Empty, 0); }
-		public EmptyContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_empty; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ReversetemplateListener ) ((ReversetemplateListener)listener).enterEmpty(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ReversetemplateListener ) ((ReversetemplateListener)listener).exitEmpty(this);
-		}
-	}
-
-	public final EmptyContext empty() throws RecognitionException {
-		EmptyContext _localctx = new EmptyContext(_ctx, getState());
-		enterRule(_localctx, 2, RULE_empty);
-		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(16);
-			match(Empty);
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
-	@SuppressWarnings("CheckReturnValue")
-	public static class GjsonContext extends ParserRuleContext {
-		public TerminalNode Gjson() { return getToken(ReversetemplateParser.Gjson, 0); }
-		public GjsonContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_gjson; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ReversetemplateListener ) ((ReversetemplateListener)listener).enterGjson(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ReversetemplateListener ) ((ReversetemplateListener)listener).exitGjson(this);
-		}
-	}
-
-	public final GjsonContext gjson() throws RecognitionException {
-		GjsonContext _localctx = new GjsonContext(_ctx, getState());
-		enterRule(_localctx, 4, RULE_gjson);
-		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(18);
-			match(Gjson);
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
-	@SuppressWarnings("CheckReturnValue")
-	public static class LoopContext extends ParserRuleContext {
-		public TerminalNode Loop() { return getToken(ReversetemplateParser.Loop, 0); }
-		public LoopContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_loop; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ReversetemplateListener ) ((ReversetemplateListener)listener).enterLoop(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ReversetemplateListener ) ((ReversetemplateListener)listener).exitLoop(this);
-		}
-	}
-
-	public final LoopContext loop() throws RecognitionException {
-		LoopContext _localctx = new LoopContext(_ctx, getState());
-		enterRule(_localctx, 6, RULE_loop);
-		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(20);
-			match(Loop);
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
-	@SuppressWarnings("CheckReturnValue")
-	public static class StrContext extends ParserRuleContext {
-		public TerminalNode Str() { return getToken(ReversetemplateParser.Str, 0); }
-		public StrContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_str; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ReversetemplateListener ) ((ReversetemplateListener)listener).enterStr(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ReversetemplateListener ) ((ReversetemplateListener)listener).exitStr(this);
-		}
-	}
-
-	public final StrContext str() throws RecognitionException {
-		StrContext _localctx = new StrContext(_ctx, getState());
-		enterRule(_localctx, 8, RULE_str);
-		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(22);
-			match(Str);
+			setState(12);
+			match(EOF);
 			}
 		}
 		catch (RecognitionException re) {
@@ -321,22 +186,16 @@ public class ReversetemplateParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\u0004\u0001\t\u0019\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
-		"\u0002\u0007\u0002\u0002\u0003\u0007\u0003\u0002\u0004\u0007\u0004\u0001"+
-		"\u0000\u0001\u0000\u0001\u0000\u0001\u0000\u0003\u0000\u000f\b\u0000\u0001"+
-		"\u0001\u0001\u0001\u0001\u0002\u0001\u0002\u0001\u0003\u0001\u0003\u0001"+
-		"\u0004\u0001\u0004\u0001\u0004\u0000\u0000\u0005\u0000\u0002\u0004\u0006"+
-		"\b\u0000\u0000\u0016\u0000\u000e\u0001\u0000\u0000\u0000\u0002\u0010\u0001"+
-		"\u0000\u0000\u0000\u0004\u0012\u0001\u0000\u0000\u0000\u0006\u0014\u0001"+
-		"\u0000\u0000\u0000\b\u0016\u0001\u0000\u0000\u0000\n\u000f\u0003\u0002"+
-		"\u0001\u0000\u000b\u000f\u0003\u0004\u0002\u0000\f\u000f\u0003\u0006\u0003"+
-		"\u0000\r\u000f\u0003\b\u0004\u0000\u000e\n\u0001\u0000\u0000\u0000\u000e"+
-		"\u000b\u0001\u0000\u0000\u0000\u000e\f\u0001\u0000\u0000\u0000\u000e\r"+
-		"\u0001\u0000\u0000\u0000\u000f\u0001\u0001\u0000\u0000\u0000\u0010\u0011"+
-		"\u0005\u0003\u0000\u0000\u0011\u0003\u0001\u0000\u0000\u0000\u0012\u0013"+
-		"\u0005\u0006\u0000\u0000\u0013\u0005\u0001\u0000\u0000\u0000\u0014\u0015"+
-		"\u0005\u0004\u0000\u0000\u0015\u0007\u0001\u0000\u0000\u0000\u0016\u0017"+
-		"\u0005\u0007\u0000\u0000\u0017\t\u0001\u0000\u0000\u0000\u0001\u000e";
+		"\u0004\u0001\t\u000f\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0001"+
+		"\u0000\u0001\u0000\u0001\u0001\u0005\u0001\b\b\u0001\n\u0001\f\u0001\u000b"+
+		"\t\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\t\u0000\u0002\u0000"+
+		"\u0002\u0000\u0000\r\u0000\u0004\u0001\u0000\u0000\u0000\u0002\t\u0001"+
+		"\u0000\u0000\u0000\u0004\u0005\u0003\u0002\u0001\u0000\u0005\u0001\u0001"+
+		"\u0000\u0000\u0000\u0006\b\t\u0000\u0000\u0000\u0007\u0006\u0001\u0000"+
+		"\u0000\u0000\b\u000b\u0001\u0000\u0000\u0000\t\n\u0001\u0000\u0000\u0000"+
+		"\t\u0007\u0001\u0000\u0000\u0000\n\f\u0001\u0000\u0000\u0000\u000b\t\u0001"+
+		"\u0000\u0000\u0000\f\r\u0005\u0000\u0000\u0001\r\u0003\u0001\u0000\u0000"+
+		"\u0000\u0001\t";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

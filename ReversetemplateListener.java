@@ -17,43 +17,13 @@ public interface ReversetemplateListener extends ParseTreeListener {
 	 */
 	void exitParseTpl(ReversetemplateParser.ParseTplContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link ReversetemplateParser#empty}.
+	 * Enter a parse tree produced by {@link ReversetemplateParser#every}.
 	 * @param ctx the parse tree
 	 */
-	void enterEmpty(ReversetemplateParser.EmptyContext ctx);
+	void enterEvery(ReversetemplateParser.EveryContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link ReversetemplateParser#empty}.
+	 * Exit a parse tree produced by {@link ReversetemplateParser#every}.
 	 * @param ctx the parse tree
 	 */
-	void exitEmpty(ReversetemplateParser.EmptyContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link ReversetemplateParser#gjson}.
-	 * @param ctx the parse tree
-	 */
-	void enterGjson(ReversetemplateParser.GjsonContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link ReversetemplateParser#gjson}.
-	 * @param ctx the parse tree
-	 */
-	void exitGjson(ReversetemplateParser.GjsonContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link ReversetemplateParser#loop}.
-	 * @param ctx the parse tree
-	 */
-	void enterLoop(ReversetemplateParser.LoopContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link ReversetemplateParser#loop}.
-	 * @param ctx the parse tree
-	 */
-	void exitLoop(ReversetemplateParser.LoopContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link ReversetemplateParser#str}.
-	 * @param ctx the parse tree
-	 */
-	void enterStr(ReversetemplateParser.StrContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link ReversetemplateParser#str}.
-	 * @param ctx the parse tree
-	 */
-	void exitStr(ReversetemplateParser.StrContext ctx);
+	void exitEvery(ReversetemplateParser.EveryContext ctx);
 }

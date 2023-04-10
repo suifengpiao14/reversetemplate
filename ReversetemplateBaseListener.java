@@ -28,49 +28,13 @@ public class ReversetemplateBaseListener implements ReversetemplateListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterEmpty(ReversetemplateParser.EmptyContext ctx) { }
+	@Override public void enterEvery(ReversetemplateParser.EveryContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitEmpty(ReversetemplateParser.EmptyContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterGjson(ReversetemplateParser.GjsonContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitGjson(ReversetemplateParser.GjsonContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterLoop(ReversetemplateParser.LoopContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitLoop(ReversetemplateParser.LoopContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterStr(ReversetemplateParser.StrContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitStr(ReversetemplateParser.StrContext ctx) { }
+	@Override public void exitEvery(ReversetemplateParser.EveryContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

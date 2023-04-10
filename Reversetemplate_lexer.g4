@@ -1,7 +1,7 @@
 lexer grammar Reversetemplate_lexer;
 LeftDim: '{{';
 RightDim: '}}';
-Empty:LeftDim ?Space*?RightDim;
+Empty:'{{'[\t\r\n\f]*'}}';
 Loop:'{{loop'.*?'}}';
 End: '{{end}}';
 Gjson
@@ -9,5 +9,3 @@ Gjson
 | '{{gjson'.*?'}}'
 ; 
 Str:(~[{}])+;
-Path: [a-zA-Z0-9_.]+;
-Space:[\t\r\n\f]+;
