@@ -16,8 +16,7 @@ public class ReversetemplateParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		LeftDim=1, RightDim=2, Empty=3, Loop=4, End=5, Gjson=6, Str=7, Path=8, 
-		Space=9;
+		LeftDim=1, RightDim=2, Empty=3, Loop=4, End=5, Gjson=6, Segment=7;
 	public static final int
 		RULE_parseTpl = 0, RULE_every = 1;
 	private static String[] makeRuleNames() {
@@ -35,8 +34,7 @@ public class ReversetemplateParser extends Parser {
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
-			null, "LeftDim", "RightDim", "Empty", "Loop", "End", "Gjson", "Str", 
-			"Path", "Space"
+			null, "LeftDim", "RightDim", "Empty", "Loop", "End", "Gjson", "Segment"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -186,16 +184,16 @@ public class ReversetemplateParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\u0004\u0001\t\u000f\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0001"+
-		"\u0000\u0001\u0000\u0001\u0001\u0005\u0001\b\b\u0001\n\u0001\f\u0001\u000b"+
-		"\t\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\t\u0000\u0002\u0000"+
-		"\u0002\u0000\u0000\r\u0000\u0004\u0001\u0000\u0000\u0000\u0002\t\u0001"+
-		"\u0000\u0000\u0000\u0004\u0005\u0003\u0002\u0001\u0000\u0005\u0001\u0001"+
-		"\u0000\u0000\u0000\u0006\b\t\u0000\u0000\u0000\u0007\u0006\u0001\u0000"+
-		"\u0000\u0000\b\u000b\u0001\u0000\u0000\u0000\t\n\u0001\u0000\u0000\u0000"+
-		"\t\u0007\u0001\u0000\u0000\u0000\n\f\u0001\u0000\u0000\u0000\u000b\t\u0001"+
-		"\u0000\u0000\u0000\f\r\u0005\u0000\u0000\u0001\r\u0003\u0001\u0000\u0000"+
-		"\u0000\u0001\t";
+		"\u0004\u0001\u0007\u000f\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001"+
+		"\u0001\u0000\u0001\u0000\u0001\u0001\u0005\u0001\b\b\u0001\n\u0001\f\u0001"+
+		"\u000b\t\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\t\u0000\u0002"+
+		"\u0000\u0002\u0000\u0000\r\u0000\u0004\u0001\u0000\u0000\u0000\u0002\t"+
+		"\u0001\u0000\u0000\u0000\u0004\u0005\u0003\u0002\u0001\u0000\u0005\u0001"+
+		"\u0001\u0000\u0000\u0000\u0006\b\t\u0000\u0000\u0000\u0007\u0006\u0001"+
+		"\u0000\u0000\u0000\b\u000b\u0001\u0000\u0000\u0000\t\n\u0001\u0000\u0000"+
+		"\u0000\t\u0007\u0001\u0000\u0000\u0000\n\f\u0001\u0000\u0000\u0000\u000b"+
+		"\t\u0001\u0000\u0000\u0000\f\r\u0005\u0000\u0000\u0001\r\u0003\u0001\u0000"+
+		"\u0000\u0000\u0001\t";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

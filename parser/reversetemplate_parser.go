@@ -36,15 +36,14 @@ func reversetemplateParserInit() {
 		"", "'{{'", "'}}'", "", "", "'{{end}}'",
 	}
 	staticData.symbolicNames = []string{
-		"", "LeftDim", "RightDim", "Empty", "Loop", "End", "Gjson", "Str", "Path",
-		"Space",
+		"", "LeftDim", "RightDim", "Empty", "Loop", "End", "Gjson", "Segment",
 	}
 	staticData.ruleNames = []string{
 		"parseTpl", "every",
 	}
 	staticData.predictionContextCache = antlr.NewPredictionContextCache()
 	staticData.serializedATN = []int32{
-		4, 1, 9, 15, 2, 0, 7, 0, 2, 1, 7, 1, 1, 0, 1, 0, 1, 1, 5, 1, 8, 8, 1, 10,
+		4, 1, 7, 15, 2, 0, 7, 0, 2, 1, 7, 1, 1, 0, 1, 0, 1, 1, 5, 1, 8, 8, 1, 10,
 		1, 12, 1, 11, 9, 1, 1, 1, 1, 1, 1, 1, 1, 9, 0, 2, 0, 2, 0, 0, 13, 0, 4,
 		1, 0, 0, 0, 2, 9, 1, 0, 0, 0, 4, 5, 3, 2, 1, 0, 5, 1, 1, 0, 0, 0, 6, 8,
 		9, 0, 0, 0, 7, 6, 1, 0, 0, 0, 8, 11, 1, 0, 0, 0, 9, 10, 1, 0, 0, 0, 9,
@@ -94,9 +93,7 @@ const (
 	ReversetemplateParserLoop     = 4
 	ReversetemplateParserEnd      = 5
 	ReversetemplateParserGjson    = 6
-	ReversetemplateParserStr      = 7
-	ReversetemplateParserPath     = 8
-	ReversetemplateParserSpace    = 9
+	ReversetemplateParserSegment  = 7
 )
 
 // ReversetemplateParser rules.

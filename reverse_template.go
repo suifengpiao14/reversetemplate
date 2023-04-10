@@ -17,6 +17,8 @@ const (
 	TOKEN_GJSON = "gjson"
 )
 
+var IsTrimSpace = true
+
 type Reversetemplate struct {
 	*parser.BaseReversetemplateListener
 	p *parser.ParseTplContext
@@ -88,8 +90,8 @@ func (pi *parserImp) Parse() (out []byte, err error) {
 	for i, node := range pi.nodes {
 		typ := node.GetSymbol().GetTokenType()
 		switch typ {
-		case parser.ReversetemplateLexerStr:
-			err = pi.ParserStr(i)
+		case parser.ReversetemplateLexerSegment:
+			err = pi.ParserSegment(i)
 		case parser.ReversetemplateLexerEmpty:
 			err = pi.ParseEmpy(i)
 		case parser.ReversetemplateLexerGjson:
@@ -114,7 +116,7 @@ func (fn TokenParserFn) Parse(node *antlr.TerminalNodeImpl, reader *bytes.Reader
 	return fn(node, reader, out)
 }
 
-func (pi *parserImp) ParserStr(index int) (err error) {
+func (pi *parserImp) ParserSegment(index int) (err error) {
 	node, _ := pi.GetNodeByIndex(index)
 	text := node.GetText()
 	data := make([]byte, len(text))
@@ -169,6 +171,9 @@ func (pi *parserImp) ParseGjson(index int) (err error) {
 		return err
 	}
 	path := str[lastIndex+1:]
+	if IsTrimSpace {
+		value = strings.TrimSpace(value)
+	}
 	pi.out, err = sjson.SetBytes(pi.out, path, value)
 	if err != nil {
 		return err
@@ -178,8 +183,8 @@ func (pi *parserImp) ParseGjson(index int) (err error) {
 
 func (pi *parserImp) getStrTokenDataIndex(node *antlr.TerminalNodeImpl) (strTokenIndex int, err error) {
 	typ := node.GetSymbol().GetTokenType()
-	if typ != parser.ReversetemplateLexerStr {
-		err = errors.Errorf("getStrTokenDataIndex.err: node type want:%d,got:%d", parser.ReversetemplateLexerStr, typ)
+	if typ != parser.ReversetemplateLexerSegment {
+		err = errors.Errorf("getStrTokenDataIndex.err: node type want:%d,got:%d", parser.ReversetemplateLexerSegment, typ)
 		return 0, err
 	}
 	strToken := node.GetText()

@@ -16,8 +16,7 @@ public class ReversetemplateParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		LeftDim=1, RightDim=2, Empty=3, Loop=4, End=5, Gjson=6, Str=7, Path=8, 
-		Space=9;
+		LeftDim=1, RightDim=2, Empty=3, Loop=4, End=5, Gjson=6, Segment=7;
 	public static final int
 		RULE_parseTpl = 0, RULE_every = 1;
 	private static String[] makeRuleNames() {
@@ -35,8 +34,7 @@ public class ReversetemplateParser extends Parser {
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
-			null, "LeftDim", "RightDim", "Empty", "Loop", "End", "Gjson", "Str", 
-			"Path", "Space"
+			null, "LeftDim", "RightDim", "Empty", "Loop", "End", "Gjson", "Segment"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -168,7 +166,7 @@ public class ReversetemplateParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\13\21\4\2\t\2\4\3"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\t\21\4\2\t\2\4\3"+
 		"\t\3\3\2\3\2\3\3\7\3\n\n\3\f\3\16\3\r\13\3\3\3\3\3\3\3\3\13\2\4\2\4\2"+
 		"\2\2\17\2\6\3\2\2\2\4\13\3\2\2\2\6\7\5\4\3\2\7\3\3\2\2\2\b\n\13\2\2\2"+
 		"\t\b\3\2\2\2\n\r\3\2\2\2\13\f\3\2\2\2\13\t\3\2\2\2\f\16\3\2\2\2\r\13\3"+
