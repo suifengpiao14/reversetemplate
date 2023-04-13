@@ -3,6 +3,7 @@ package reversetemplate
 import (
 	"bytes"
 	"io"
+	"strconv"
 	"strings"
 
 	"github.com/antlr/antlr4/runtime/Go/antlr/v4"
@@ -42,7 +43,6 @@ func Parse(tpl string) (revTpl *Reversetemplate) {
 	// Finally parse the expression
 	l := &Reversetemplate{}
 	antlr.ParseTreeWalkerDefault.Walk(l, p.ParseTpl())
-
 	return l
 }
 
@@ -53,7 +53,7 @@ func (rev *Reversetemplate) Execute(data []byte) (out []byte, err error) {
 		return nil, err
 	}
 	imp := newParserImp(nodes, data)
-	out, err = imp.Parse()
+	out, err = imp.Parse(0)
 	if err != nil {
 		return nil, err
 	}
@@ -85,9 +85,10 @@ func (pi *parserImp) GetNodeByIndex(index int) (node *antlr.TerminalNodeImpl, ok
 	return pi.nodes[index], true
 }
 
-func (pi *parserImp) Parse() (out []byte, err error) {
-
-	for i, node := range pi.nodes {
+func (pi *parserImp) Parse(loopIndex int) (out []byte, err error) {
+	l := len(pi.nodes)
+	for i := 0; i < l; i++ {
+		node := pi.nodes[i]
 		typ := node.GetSymbol().GetTokenType()
 		switch typ {
 		case parser.ReversetemplateLexerSegment:
@@ -95,7 +96,14 @@ func (pi *parserImp) Parse() (out []byte, err error) {
 		case parser.ReversetemplateLexerEmpty:
 			err = pi.ParseEmpy(i)
 		case parser.ReversetemplateLexerGjson:
-			err = pi.ParseGjson(i)
+			err = pi.ParseGjson(i, loopIndex)
+		case parser.ReversetemplateLexerLoop:
+			i, err = pi.ParseLoop(i)
+			if err != nil {
+				return nil, err
+			}
+		case parser.ReversetemplateLexerEnd:
+		case -1:
 		default:
 			err = errors.Errorf("not implemented type %d", typ)
 		}
@@ -145,7 +153,7 @@ func (pi *parserImp) ParseEmpy(index int) (err error) {
 	return nil
 }
 
-func (pi *parserImp) ParseGjson(index int) (err error) {
+func (pi *parserImp) ParseGjson(index int, loopIndex int) (err error) {
 	node, _ := pi.GetNodeByIndex(index)
 	gjsonTpl := node.GetText()
 	value := ""
@@ -171,6 +179,8 @@ func (pi *parserImp) ParseGjson(index int) (err error) {
 		return err
 	}
 	path := str[lastIndex+1:]
+	path = strings.ReplaceAll(path, "$index", strconv.Itoa(loopIndex))
+	path = strings.Trim(path, `"`)
 	if IsTrimSpace {
 		value = strings.TrimSpace(value)
 	}
@@ -181,9 +191,62 @@ func (pi *parserImp) ParseGjson(index int) (err error) {
 	return nil
 }
 
+func (pi *parserImp) ParseLoop(index int) (lastIndex int, err error) {
+	l := len(pi.nodes)
+	i := index + 1
+	var endNode *antlr.TerminalNodeImpl
+	for ; i < l; i++ {
+		if l <= i {
+			break
+		}
+		tmpNode := pi.nodes[i]
+		if tmpNode.GetSymbol().GetTokenType() == parser.ReversetemplateLexerEnd {
+			endNode = tmpNode
+			break
+		}
+	}
+	if endNode == nil {
+		err = errors.Errorf("not found end token")
+		return 0, err
+	}
+
+	nextNode, ok := pi.GetNodeByIndex(i + 1)
+	var subByte []byte
+	if ok {
+		n, err := pi.getStrTokenDataIndex(nextNode)
+		if err != nil {
+			return 0, err
+		}
+		b := make([]byte, n)
+		_, err = pi.buf.Read(b)
+		if err != nil {
+			return 0, err
+		}
+		subByte = b
+	} else {
+		subByte = pi.buf.Bytes()
+	}
+	loopIndex := -1
+	for {
+		if len(subByte) == 0 {
+			return i, nil
+		}
+		loopIndex++
+		subPi := newParserImp(pi.nodes[index+1:i], subByte)
+		subPi.out = pi.out
+		_, err = subPi.Parse(loopIndex)
+		if err != nil {
+			return 0, err
+		}
+		pi.out = subPi.out
+		subByte = subPi.buf.Bytes()
+
+	}
+}
+
 func (pi *parserImp) getStrTokenDataIndex(node *antlr.TerminalNodeImpl) (strTokenIndex int, err error) {
 	typ := node.GetSymbol().GetTokenType()
-	if typ != parser.ReversetemplateLexerSegment {
+	if typ != -1 && typ != parser.ReversetemplateLexerSegment {
 		err = errors.Errorf("getStrTokenDataIndex.err: node type want:%d,got:%d", parser.ReversetemplateLexerSegment, typ)
 		return 0, err
 	}
@@ -192,11 +255,16 @@ func (pi *parserImp) getStrTokenDataIndex(node *antlr.TerminalNodeImpl) (strToke
 	if s == "" || s == io.EOF.Error() {
 		return 0, nil
 	}
-	strTokenIndex = strings.Index(s, strToken)
-	if strTokenIndex < 0 {
-		err = errors.Errorf("not found tpl string:%s,got:%s", strToken, s)
-		return 0, err
+	if typ == -1 {
+		strTokenIndex = len(s) - 1
+	} else {
+		strTokenIndex = strings.Index(s, strToken)
+		if strTokenIndex < 0 {
+			err = errors.Errorf("not found tpl string:%s,got:%s", strToken, s)
+			return 0, err
+		}
 	}
+
 	pi.buf.Reset()
 	_, err = pi.buf.WriteString(s)
 	if err != nil {
